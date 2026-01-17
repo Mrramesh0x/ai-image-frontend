@@ -1,66 +1,89 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+const Home = () => {
+  const [prompt, setPrompt] = useState("");
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleGenerateImage = async () => {
+    if (!prompt.trim()) {
+      setError("Please enter a prompt");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+      setImage("");
+
+      const response = await axios.post(
+        "https://ai-image-sc2b.onrender.com/api/generate-image",
+        { userPrompt: prompt }
+      );
+
+      const images = response.data.images;
+
+      if (!images || images.length === 0) {
+        setError("No image returned");
+        return;
+      }
+
+      setImage(images[0]);
+    } catch {
+      setError("Image generation failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+useEffect(()=>{
+  if(prompt===""){
+  setImage("")
+}
+})
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="ai-page">
+
+      <div className="ai-header">
+        <h1>AI Image Generator</h1>
+        <p>Describe anything and let AI create it ✨</p>
+      </div>
+
+      <div className="ai-output">
+        {loading && (
+  <div className="ai-spinner-wrapper">
+    <div className="ai-spinner"></div>
+    <p className="ai-loading-text">Generating image</p>
+  </div>
+)}
+
+        {error && <p className="ai-error">{error}</p>}
+
+        {image && (
+          <div className="ai-image-box">
+            <img src={image} className="alt-text" alt="The Thing You Entered Is Not Allowed To Generate" />
+          </div>
+        )}
+      </div>
+
+     <div className="ai-input-bar">
+  <div className="ai-input-group">
+    <input
+      className="ai-input"
+      placeholder="A boy playing cricket"
+      value={prompt}
+      onChange={(e) => setPrompt(e.target.value)}
+    />
+    <button className="ai-btn" onClick={handleGenerateImage} disabled={loading}>
+      Generate
+    </button>
+  </div>
+</div>
+
     </div>
   );
-}
+};
+
+export default Home;
