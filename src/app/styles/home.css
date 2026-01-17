@@ -134,3 +134,66 @@
     transform: rotate(360deg);
   }
 }
+@media (max-width: 640px) {
+
+  /* Fix mobile 100vh issue */
+  .ai-page {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  /* Header compact */
+  .ai-header {
+    padding: 14px;
+  }
+
+  .ai-header h1 {
+    font-size: 20px;
+  }
+
+  .ai-header p {
+    font-size: 12px;
+    top: 0; /* remove extra spacing */
+  }
+
+  /* Output should not center vertically */
+  .ai-output {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  /* Image scaling */
+  .ai-image-box {
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  /* Input bar tighter */
+  .ai-input-bar {
+    padding: 10px;
+  }
+
+  .ai-input-group {
+    gap: 8px;
+  }
+
+  .ai-input {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+
+  .ai-btn {
+    padding: 0 14px;
+    font-size: 14px;
+  }
+
+  /* Loading + errors */
+  .ai-loading-text {
+    font-size: 14px;
+  }
+
+  .ai-error {
+    font-size: 18px;
+  }
+}
+
