@@ -20,6 +20,9 @@
 .ai-header p {
   color: #b3b3c6;
   font-size: 14px;
+  text-align: center;
+  position: relative;
+  top: 30px;
 }
 
 .ai-output {
