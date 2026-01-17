@@ -152,7 +152,7 @@
   }
 
   .ai-header p {
-    font-size: 12px;
+    font-size: 15px;
     top: 20px; /* remove extra spacing */
   }
 
@@ -160,7 +160,7 @@
   .ai-output {
     padding: 12px;
     align-items: flex-start;
-    margin-top: 250px;
+    margin-top: 200px;
   }
 
   /* Image scaling */
