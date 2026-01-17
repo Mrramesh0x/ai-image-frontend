@@ -153,13 +153,14 @@
 
   .ai-header p {
     font-size: 12px;
-    top: 0; /* remove extra spacing */
+    top: 20px; /* remove extra spacing */
   }
 
   /* Output should not center vertically */
   .ai-output {
     padding: 12px;
     align-items: flex-start;
+    margin-top: 250px;
   }
 
   /* Image scaling */
